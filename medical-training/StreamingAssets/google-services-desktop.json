@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "613386453287",
+    "firebase_url": "https://medical-training-28fcf-default-rtdb.firebaseio.com",
+    "project_id": "medical-training-28fcf",
+    "storage_bucket": "medical-training-28fcf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613386453287:web:f35ebfd8e319115ccf6902",
+        "android_client_info": {
+          "package_name": "com.defaultcompany.medicaltraining"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLRUaXYN2XIZ-wyXjCdTyT4tXXL4p80tE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
