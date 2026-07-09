@@ -4,10 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | StanfordBenit 2D</title>
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
+    <div id="rotate-hint" aria-live="polite">
+      <div class="rotate-hint-content">
+        <div class="rotate-hint-icon" aria-hidden="true">&#8635;</div>
+        <p class="rotate-hint-en">Please rotate your device to landscape</p>
+        <p class="rotate-hint-ar" dir="rtl">يرجى تدوير الجهاز إلى الوضع الأفقي</p>
+      </div>
+    </div>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
@@ -25,6 +33,30 @@
     </div>
     <script>
       var canvas = document.querySelector("#unity-canvas");
+      var rotateHint = document.querySelector("#rotate-hint");
+
+      function isPortraitViewport() {
+        return window.innerHeight > window.innerWidth;
+      }
+
+      function updateRotateHint() {
+        if (!rotateHint) return;
+        rotateHint.style.display = isPortraitViewport() ? "flex" : "none";
+      }
+
+      async function tryLockLandscape() {
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock("landscape");
+          }
+        } catch (e) {
+          // Browsers may block lock without fullscreen or a user gesture.
+        }
+      }
+
+      window.addEventListener("resize", updateRotateHint);
+      window.addEventListener("orientationchange", updateRotateHint);
+      updateRotateHint();
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
@@ -61,7 +93,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "StanfordBenit 2D",
-        productVersion: "1.9",
+        productVersion: "1.17",
         showBanner: unityShowBanner,
       };
 
@@ -81,6 +113,7 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
         document.querySelector("#unity-container").className = "unity-mobile";
         canvas.className = "unity-mobile";
+        document.body.addEventListener("click", tryLockLandscape, { once: true });
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
@@ -104,7 +137,12 @@
                 document.querySelector("#unity-loading-bar").style.display = "none";
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
                   unityInstance.SetFullscreen(1);
+                  tryLockLandscape();
                 };
+
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                  tryLockLandscape();
+                }
 
               }).catch((message) => {
                 alert(message);
