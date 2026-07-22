@@ -2,7 +2,7 @@
   "name": "StanfordBenit 2D",
   "short_name": "StanfordBenit 2D",
   "display": "fullscreen",
-  "orientation": "landscape",
+  "orientation": "any",
   "start_url": "index.html",
   "background_color": "#808080",
   "theme_color": "#808080"
