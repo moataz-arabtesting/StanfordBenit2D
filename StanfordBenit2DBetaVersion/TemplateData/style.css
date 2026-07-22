@@ -1,25 +1,4 @@
 body { padding: 0; margin: 0 }
-#rotate-hint {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  background: #111;
-  color: #fff;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: arial, sans-serif;
-  padding: 24px;
-}
-#rotate-hint .rotate-hint-content { max-width: 320px; }
-#rotate-hint .rotate-hint-icon {
-  font-size: 64px;
-  line-height: 1;
-  margin-bottom: 16px;
-  transform: rotate(90deg);
-}
-#rotate-hint p { margin: 8px 0; font-size: 20px; line-height: 1.4; }
 #unity-container { position: absolute }
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
 #unity-container.unity-mobile { position: fixed; width: 100%; height: 100% }
